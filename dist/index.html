@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BLOCK FIELD · 블록 필드</title>
+  <meta name="description" content="넓은 베이스플레이트에 나만의 공간을 만드는 3D 블록 게임. Tab 키로 블록을 선택하세요.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23142029'/%3E%3Cpath d='m16 6 10 6v11l-10 5-10-5V12Z' fill='%23bef264'/%3E%3Cpath d='m6 12 10 6 10-6M16 18v10' fill='none' stroke='%23142029' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="3D 블록 건축 공간"></main>
+  <header class="topbar">
+    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m16 3 12 7v13l-12 7-12-7V10Z M4 10l12 7 12-7M16 17v13"/></svg><div>BLOCK FIELD<small>나만의 블록 세계</small></div></div>
+    <div class="world-info"><span>자유 건축</span><span>128 × 128</span></div>
+    <button id="menu-button" class="menu-button" aria-haspopup="dialog">블록 메뉴 <kbd>Tab</kbd></button>
+  </header>
+  <aside class="world-label"><span class="eyebrow">YOUR OPEN WORLD</span><h1>상상할 공간은 충분해요.</h1><p>블록을 골라 첫 번째 건축을 시작해 보세요.</p></aside>
+  <div id="crosshair" aria-hidden="true"></div>
+  <div id="play-hint"><button id="play-button">클릭해서 둘러보기 <span>마우스 중앙 고정 · Tab으로 메뉴 열기</span></button></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <section class="bottom-ui" aria-label="게임 조작">
+    <div class="selection"><span>선택한 블록</span><strong id="selected-name">잔디</strong><span id="block-count">설치 0개</span></div>
+    <nav id="hotbar" aria-label="블록 빠른 선택"></nav>
+    <div class="controls"><span><kbd>W A S D</kbd> 이동</span><span><kbd>Space</kbd> 상승 <kbd>Q</kbd> 하강</span><span><kbd>좌클릭</kbd> 설치 <kbd>우클릭</kbd> 삭제</span><span><kbd>Esc</kbd> 마우스 해제</span></div>
+  </section>
+  <div class="coordinates" id="coordinates">X 0 · Z 0</div>
+  <div class="touch-ui"><div class="dpad"><button data-move="KeyW" aria-label="앞으로">▲</button><div><button data-move="KeyA" aria-label="왼쪽">◀</button><button data-move="KeyS" aria-label="뒤로">▼</button><button data-move="KeyD" aria-label="오른쪽">▶</button></div></div><div class="touch-actions"><button data-move="Space">상승</button><button data-move="KeyQ">하강</button><button id="touch-place">설치</button><button id="touch-remove">삭제</button></div></div>
+  <dialog id="block-menu" aria-labelledby="menu-title">
+    <div class="dialog-top"><div><span class="eyebrow">BLOCK COLLECTION</span><h2 id="menu-title">무엇을 만들어 볼까요?</h2></div><button id="close-menu" aria-label="블록 메뉴 닫기">✕</button></div>
+    <p class="dialog-description">사용할 블록을 선택하세요. 숫자키 1–8로도 바꿀 수 있어요.</p>
+    <div id="block-grid"></div>
+    <footer><span><kbd>Tab</kbd> 메뉴 열기 · 닫기</span><button id="resume">선택한 블록으로 만들기</button></footer>
+  </dialog>
+  <div id="error" hidden role="alert">3D 화면을 시작하지 못했어요. 하드웨어 가속을 켠 최신 브라우저에서 다시 열어 주세요.</div>
+  <script type="module">import('./game.js').catch(error=>{document.querySelector('#error').hidden=false;console.error(error);});</script>
+</body></html>
